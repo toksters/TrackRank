@@ -1,0 +1,82 @@
+<style>
+.typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+}
+
+        .typeahead-demo .custom-popup-wrapper > .message {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            color: #868686;
+        }
+
+        .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+            position: static;
+            float: none;
+            display: block;
+            min-width: 160px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+</style>
+
+<script type="text/ng-template" id="customPopupTemplate.html">
+    <div class="custom-popup-wrapper"
+     ng-style="{top: position().top+'px', left: position().left+'px'}"
+     style="display: block;"
+     ng-show="isOpen() && !moveInProgress"
+     aria-hidden="{{!isOpen()}}">
+
+    <ul ng-controller='searchCtrl'>
+        <li class="listElem"  ng-repeat="match in matches track by $index" ng-click=selectMatch($index)> 
+            <img class="coverPhoto" src={{match.label.cover}}><p class="albumLabel"><b>{{match.label.album}}</b> - {{match.label.artist}}</p>
+        </li>
+    </ul>
+
+      </li>
+    </ul>
+  </div>
+</script>
+
+<style>
+    
+    .albumLabel {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    ul {
+        padding: 10px;
+        margin: 0;
+    }
+
+    .coverPhoto {
+        display: inline-block;
+        height: 34px;
+        width: 34px;
+    }
+
+    .listElem {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        list-style: none;
+    }
+    .listElem:hover {
+        background-color: yellow;
+    }
+</style>
+
+<div class='container-fluid typeahead-demo'>
+
+<h4>Pick an album:</h4>
+<input type="text" ng-model="asyncSelected" placeholder="Search for an album..." uib-typeahead="album for album in getAlbums($viewValue)"  typeahead-popup-template-url="customPopupTemplate.html" typeahead-on-select="alertAlbum($item, $model, $label)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+
+

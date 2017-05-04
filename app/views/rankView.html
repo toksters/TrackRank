@@ -1,0 +1,10 @@
+
+<style>
+    
+</style>
+<img src={{coverUrl}}>
+<ol id="sortable" ng-init="initializeTracks(); makeSortable()">
+    <li class="listElem ui-state-default"  ng-repeat="track in tracks">{{track.name}}</li>
+</ol>
+
+<button ng-click="getOrder()">CLICK ME</button>
