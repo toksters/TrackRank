@@ -1,10 +1,61 @@
-
 <style>
-    
-</style>
-<img src={{coverUrl}}>
-<ol id="sortable" ng-init="initializeTracks(); makeSortable()">
-    <li class="listElem ui-state-default"  ng-repeat="track in tracks">{{track.name}}</li>
-</ol>
+#mainDiv {
+    display: block;
+    width: 270px;
+    margin: 0 auto;
+    padding-top: 10px;
+    background-color: rgba(165, 165, 165, .4);
+}
 
+.listElem {
+    padding: 10px 0 10px 0;
+    background-color: transparent;
+}
+
+#sortable {
+    display: block;
+    background-color: transparent;
+    padding-left: 0;
+
+}
+
+img {
+    display: block;
+    text-align: center;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+#listCont {
+    display: block;
+    width: 250px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.listElemCont {
+    text-align: center;
+    background-color: transparent;
+    width: 100%;
+    padding-left: 25px;
+    margin-bottom: -1px;
+    border-width: 1px;
+    border-style: solid;
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+
+</style>
+
+<div id="mainDiv">
+<img src={{coverUrl}}>
+<div id="listCont">
+<ol id="sortable" ng-init="initializeTracks(); makeSortable()">
+    <div class="listElemCont" ng-repeat="track in tracks track by $index" data-index="{{$index + 1}}"><li class="listElem ui-state-default">{{track.name}}</li></div>
+</ol>
+</div>
 <button ng-click="getOrder()">CLICK ME</button>
+</div>

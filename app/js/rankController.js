@@ -30,7 +30,8 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
    $scope.getOrder = function(){
         var tracks = []; 
         $('#sortable').children().each(function(){
-            tracks.push($(this).html());    
+            tracks.push({name: $(this).children().html(), trackNum: $(this).data('index')});    
+            
         });
         console.log(tracks);
    }
