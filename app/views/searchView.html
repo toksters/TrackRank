@@ -15,6 +15,7 @@
     z-index: 1000;
     display: none;
     background-color: #f9f9f9;
+    width: 58%;
 }
 
         .typeahead-demo .custom-popup-wrapper > .message {
@@ -42,7 +43,7 @@
      ng-show="isOpen() && !moveInProgress"
      aria-hidden="{{!isOpen()}}">
 
-    <ul ng-controller='searchCtrl'>
+    <ul ng-controller='searchCtrl' id="resultCont">
         <li class="listElem"  ng-repeat="match in matches track by $index" ng-click=selectMatch($index)> 
             <img class="coverPhoto" src={{match.label.cover}}><p class="albumLabel"><b>{{match.label.album}}</b> - {{match.label.artist}}</p>
         </li>
@@ -54,32 +55,42 @@
 </script>
 
 <style>
-    
+
+    .coverPhoto {
+        vertical-align: middle;
+    }
+
     .albumLabel {
         display: inline-block;
         margin-left: 10px;
     }
 
     ul {
-        padding: 10px;
+        display: block;
+        padding: 0;
         margin: 0;
+        margin-right: 0;
     }
 
     .coverPhoto {
         display: inline-block;
         height: 34px;
         width: 34px;
+        
     }
 
     .listElem {
         padding: 0;
+        padding-left: 10px;
+        padding-top: 2px;
+        padding-bottom: 2px;
         margin: 0;
         width: 100%;
         height: 100%;
         list-style: none;
     }
     .listElem:hover {
-        background-color: yellow;
+        background-color: grey;
     }
 
     #backdrop {
