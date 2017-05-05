@@ -1,4 +1,13 @@
 <style>
+    html {
+        height: 100%;
+    }
+    body{
+        height: 100%;
+        background-image: url('/images/vinyl-background.jpg');
+        background-size: 100% 100%;
+        background-repeat: no-repeat; 
+    }
 .typeahead-demo .custom-popup-wrapper {
     position: absolute;
     top: 100%;
@@ -72,11 +81,24 @@
     .listElem:hover {
         background-color: yellow;
     }
-</style>
 
+    #backdrop {
+        z-index: -2;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+    }
+
+    #searchInput {
+        width: 60%;
+        margin: 0 auto;
+        margin-top: 25%;
+         
+    }
+</style>
+<img src="images/vinyl-background.jpg" id="backdrop">
 <div class='container-fluid typeahead-demo'>
 
-<h4>Pick an album:</h4>
-<input type="text" ng-model="asyncSelected" placeholder="Search for an album..." uib-typeahead="album for album in getAlbums($viewValue)"  typeahead-popup-template-url="customPopupTemplate.html" typeahead-on-select="alertAlbum($item, $model, $label)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+<input type="text" id="searchInput" ng-model="asyncSelected" placeholder="Search for an album..." uib-typeahead="album for album in getAlbums($viewValue)"  typeahead-popup-template-url="customPopupTemplate.html" typeahead-on-select="alertAlbum($item, $model, $label)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
 
 

@@ -4,10 +4,7 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
         $('#sortable').disableSelection();
     }
 
-    $scope.tracks = [{trackNum: 1, name : "Come Together"}, 
-                      {trackNum: 2, name : "Something"},
-                        {trackNum: 3, name : "Maxwell's Silver Hammer"},
-                            {trackNum: 4, name : "Oh! Darling!"}];
+    $scope.tracks = [];
     
     $scope.printData = function(){
         console.log($routeParams.artist + " " + $routeParams.album);
@@ -35,5 +32,13 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
         });
         console.log(tracks);
    }
-
+    
+   $(function(){
+       setTimeout(function(){
+            $('#instructions').addClass('hide-opacity'); 
+           setTimeout(function(){
+               $('#instructions').css('display', 'none');
+            }, 2000);
+        }, 2000);
+    });
 });
