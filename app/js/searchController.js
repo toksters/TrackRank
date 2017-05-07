@@ -15,6 +15,16 @@ app.controller('searchCtrl', function($scope, $http, $location) {
         return $scope.returnedAlbums[album].cover;
   }
 
+  var filterAlbums = function(albumObjs){
+    var validAlbums = [];
+    albumObjs.forEach(function(album){
+        if(album.mbid.length > 0){
+            validAlbums.push(album);
+        }
+    });
+    return validAlbums;
+  }
+
   // Any function returning a promise object can be used to load values asynchronously
   $scope.getAlbums = function(val) {
     while($scope.updating);
@@ -26,14 +36,14 @@ app.controller('searchCtrl', function($scope, $http, $location) {
             $scope.returnedAlbums[item.name] = {artist: item.artist, cover: item.image[1]["#text"], mbid: item.mbid}
             });
             console.log($scope.returnedAlbums);
-            return response.data.results.albummatches.album.map(function(item){
+            return filterAlbums(response.data.results.albummatches.album.map(function(item){
                 if(item.image[1]['#text'] == ""){
                     return {album: item.name, artist: item.artist, cover: "images/unknown-album-cover.png", mbid: item.mbid};
                 } else {
                     return {album: item.name, artist: item.artist, cover: item.image[1]['#text'], mbid: item.mbid};
                 }//return item.name;
                 //return "<img src=\"" + $scope.returnedAlbums[item.name].cover + "\"/> <b>" + item.name + "</b> - " + $scope.returnedAlbums[item.name].artist;
-            });
+            }));
         });
     };
 });

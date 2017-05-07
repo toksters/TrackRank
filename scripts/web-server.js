@@ -11,8 +11,6 @@ router.get('/', function(req, res){
     res.json({message: 'Welcome to our API'});
 });
 
-router
-
 app.use('/', router);
 
 app.listen(8080);
@@ -20,13 +18,21 @@ app.listen(8080);
 console.log("Server is now running");
 
 var MongoClient = require('mongodb').MongoClient;
-MongoClient.connect('mongodb://localhost:27017/test', function (err, db) {
-          if (err) throw err
+var db;
+var connected = false;
+MongoClient.connect('mongodb://localhost:27017/test', function (err, dbobj) {
+        if (err) throw err
+        database = dbobj;
+        connected = true;
+        console.log("Connected to database");
+});
 
-            db.collection('sample').find().toArray(function (err, result) {
-                    if (err) throw err
+if(connected){
+    db.collection('sample').find().toArray(function (err, result) {
+        if (err) throw err
 
-                            console.log(result)
-                                  })
-            })
+            console.log(result)
+    });
+}
+
 
