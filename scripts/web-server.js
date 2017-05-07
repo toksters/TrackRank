@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var elo = require('./elo');
 var app = express();
 var rootpath = path.normalize(__dirname + '/../');
 
@@ -16,6 +17,7 @@ app.use('/', router);
 app.listen(8080);
 
 console.log("Server is now running");
+elo.testFunc();
 
 var MongoClient = require('mongodb').MongoClient;
 var db;
