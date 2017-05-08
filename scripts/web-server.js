@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 var elo = require('./elo');
 var mongo = require('./mongoMod');
 var api = require('./trackRankApi');
@@ -14,7 +15,8 @@ app.use('api/test', function(req, res){
     res.send(db.collection('sample').find());    
 });
 */
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use('/', api.getRouter());
 app.listen(8080);
 

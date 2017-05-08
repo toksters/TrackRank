@@ -32,7 +32,28 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
         });
         console.log(tracks);
    }
-    
+
+    $scope.writeAlbum = function(){
+        $http.post('http://localhost:8080/api/writeNewAlbum', {name: "Abbey Road", mbid: "12345", voteCount: 0, tracks: [  {name: "Come Together", trackNo: 1},
+                         {name: "Something", trackNo: 2},
+                         {name: "Maxwell's Silver Hammer", trackNo: 3},
+                         {name: "Oh! Darling", trackNo: 4},
+                         {name: "Octopus's Garden", trackNo: 5},
+                         {name: "I Want You (She's So Heavy)", trackNo: 6},
+                         {name: "Here Comes The Sun", trackNo: 7},
+                         {name: "Because", trackNo: 8},
+                         {name: "You Never Give Me Your Money", trackNo: 9},
+                         {name: "Sun King", trackNo: 10},
+                         {name: "Mean Mr. Mustard", trackNo: 11},
+                         {name: "She Came In Through The Bathroom Window", trackNo: 12},
+                         {name: "Golden Slumbers", trackNo: 13},
+                         {name: "Carry That Weight", trackNo: 14},
+                         {name: "The End", trackNo: 15},
+                         {name: "Her Majesty", trackNo: 16}]}).then(function(){
+                            console.log("Success");                                                        
+                         });
+    }
+
    $(function(){
        setTimeout(function(){
             $('#instructions').addClass('hide-opacity'); 
