@@ -22,10 +22,10 @@ router.get('/api/test2', function(req, res, next){
 });
 */
 
-router.post('/api/writeNewAlbum', function(req, res, next){
-    var mbid = req.body.mbid;
+var createNewAlbum = function(obj){
+    var mbid = obj.mbid;
     var db = mongo.get();
-    var writeObj = req.body;
+    var writeObj = obj;
     writeObj._id = writeObj.mbid;
     delete writeObj.mbid;
     //initialize elo score value for each track!
@@ -33,8 +33,23 @@ router.post('/api/writeNewAlbum', function(req, res, next){
         track.eloScore = 1400;
     });
     db.collection('AlbumInfo').insert(writeObj);
-    res.sendStatus(200);    
+}
+
+router.post('/api/updateAlbum', function(req, res, next){
+    var db = mongo.get();
+    var mbid = req.body.mbid;
+    console.log(mbid);
+    var resSize = 0;
+    db.collection('AlbumInfo').count({_id:  mbid }, function(err, count){
+        if(resSize == 0){
+            createNewAlbum(req.body);
+        } else {
+            //Update the scores here
+            
+        }
+    });
 });
+
 
 exports.getRouter = function(){
     return router;

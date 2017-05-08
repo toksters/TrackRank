@@ -34,7 +34,7 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
    }
 
     $scope.writeAlbum = function(){
-        $http.post('http://localhost:8080/api/writeNewAlbum', {name: "Abbey Road", mbid: "12345", voteCount: 0, tracks: [  {name: "Come Together", trackNo: 1},
+        $http.post('http://localhost:8080/api/updateAlbum', {name: "Abbey Road", mbid: "12345", voteCount: 0, tracks: [  {name: "Come Together", trackNo: 1},
                          {name: "Something", trackNo: 2},
                          {name: "Maxwell's Silver Hammer", trackNo: 3},
                          {name: "Oh! Darling", trackNo: 4},
