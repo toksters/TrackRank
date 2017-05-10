@@ -11,6 +11,7 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
     }
 
     $scope.coverUrl = "";
+    $scope.mbid = "";
 
     $scope.initializeTracks = function(){
         $scope.printData();
@@ -20,6 +21,7 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
             $scope.tracks = res.data.album.tracks.track.map(function(item, index) {
                 return {trackNum: index + 1, name: item.name};
             });
+            $scope.mbid = res.data.album.mbid;
             console.log($scope.tracks);
         });
     }
@@ -31,10 +33,15 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
             
         });
         console.log(tracks);
+        return tracks;
    }
 
     $scope.writeAlbum = function(){
-        $http.post('http://localhost:8080/api/updateAlbum', {name: "Abbey Road", mbid: "12345", voteCount: 0, tracks: [  {name: "Come Together", trackNo: 1},
+        var albumObj = {name: $routeParams.album, artist: $routeParams.artist, mbid: $scope.mbid, tracks: $scope.getOrder()};
+        $http.post('http://localhost:8080/api/updateAlbum', albumObj).then(function(){
+            console.log("Success");       
+        });
+       /*        $http.post('http://localhost:8080/api/updateAlbum', {name: "Abbey Road", mbid: "12345", voteCount: 0, tracks: [  {name: "Come Together", trackNo: 1},
                          {name: "Something", trackNo: 2},
                          {name: "Maxwell's Silver Hammer", trackNo: 3},
                          {name: "Oh! Darling", trackNo: 4},
@@ -51,7 +58,7 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
                          {name: "The End", trackNo: 15},
                          {name: "Her Majesty", trackNo: 16}]}).then(function(){
                             console.log("Success");                                                        
-                         });
+                         });*/
     }
 
    $(function(){

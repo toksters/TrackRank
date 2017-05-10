@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var elo = require('./elo');
 var mongo = require('./mongoMod');
 var api = require('./trackRankApi');
 var app = express();
