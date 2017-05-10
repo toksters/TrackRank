@@ -25,10 +25,13 @@ mongo.connect(dburl);
 
 var processScores = function(obj){
     var db = mongo.get();
+    if(obj._id == undefined){
+        obj._id = obj.mbid;
+        delete obj.mbid;
+    }
     db.collection('AlbumInfo').find({_id : obj._id }).toArray(function(err, docs){
         if (err) throw err; 
-        tracksByNum = docs[0].tracks;
-
+        var tracksByNum = docs[0].tracks;
         //Add existing elo scores to the new rankings
         for (i in obj.tracks ){
             var eloVar = tracksByNum[obj.tracks[i].trackNum-1].eloScore;
@@ -45,8 +48,15 @@ var processScores = function(obj){
                 obj.tracks[i].eloScore = newWinnerRating;
                 obj.tracks[j].eloScore = newLoserRating;
             }
-            console.log(obj.tracks[i].name + "'s new score: " + obj.tracks[i].eloScore);
         }
+        obj.tracks.sort(function(track1, track2){
+            return track1.trackNum - track2.trackNum;
+        });
+        obj.voteCount = docs[0].voteCount + 1;
+        db.collection('AlbumInfo').update({_id: obj._id}, obj, {upsert: true}, function(err, fin){
+            if(err) throw err;
+            console.log("SUCCESS");
+        });
     });
 }
 
@@ -57,6 +67,7 @@ var createNewAlbum = function(obj){
     writeObj._id = writeObj.mbid;
     delete writeObj.mbid;
     //initialize elo score value for each track!
+    writeObj.voteCount = 0;
     writeObj.tracks.forEach(function(track){
         track.eloScore = 1400;
     });
@@ -70,11 +81,11 @@ router.post('/api/updateAlbum', function(req, res, next){
     var mbid = req.body.mbid;
     var resSize = 0;
     db.collection('AlbumInfo').count({_id:  mbid }, function(err, count){
-        if(resSize == 0){
+        if(count == 0){
             createNewAlbum(req.body);
         } else {
             //Update the scores here
-
+            processScores(req.body);
         }
     });
 });
