@@ -78,23 +78,42 @@
     border-style: none;
 }
 
+#rankContainer {
+}
+
+#resultsContainer {
+    text-align: center;
+    display: none;
+}
+
 </style>
-<link href="css/flip.css" rel="stylesheet" type="text/css"></link>
 <img id="backdrop" src="images/vinyl-background.jpg">
-<div data-role="page" id="mainDiv">
-<img id="coverphoto" src={{coverUrl}}>
-<p id="instructions">Click and drag below to rank </p>
-<div id="listCont">
-<ol id="sortable" ng-init="initializeTracks(); makeSortable()">
-    <div class="listElemCont" ng-repeat="track in tracks track by $index" data-index="{{$index + 1}}"><li class="listElem ui-state-default">{{track.name}}</li></div>
-</ol>
+<div data-role="page" id="mainDiv"> 
+    <img id="coverphoto" src={{coverUrl}}>
+    <div id="rankContainer">
+        <p id="instructions">Click and drag below to rank </p>
+        <div id="listCont">
+            <ol id="sortable" ng-init="initializeTracks(); makeSortable()">
+                <div class="listElemCont" ng-repeat="track in tracks track by $index" data-index="{{$index + 1}}"><li class="listElem ui-state-default">{{track.name}}</li></div>
+            </ol>
+        </div>
+        <button id="submit" ng-click="getOrder(); writeAlbum(); showResults()"><b>SUBMIT</b></button>
+    </div>
+    <div id="resultsContainer">
+        <h1>RESULTS</h1>
+        <div id="resultsListCont">
+            <ol id="resultsList">
+                <li ng-repeat="track in results track by $index">{{track.name}}</li>
+            </ol>
+        </div>      
+    </div>
 </div>
-</div>
-<button id="submit" ng-click="getOrder(); writeAlbum()"><b>SUBMIT</b></button>
-</div>
+
 <script>
 $(document).ready(function(){
-    console.log("YES");
-}, 2000);
+    $('#submit').on('click', function(){
+    });    
 });
+
+
 </script>

@@ -86,10 +86,20 @@ router.post('/api/updateAlbum', function(req, res, next){
         } else {
             //Update the scores here
             processScores(req.body);
+            res.sendStatus(200);
         }
     });
 });
 
+router.post('/api/getAlbum', function(req, res, next){
+    var db = mongo.get();
+    var mbid = req.body.mbid;
+    console.log("GETTING ALBUM: " + mbid);
+    db.collection('AlbumInfo').findOne({_id: mbid}, function(err, album){
+        console.log("SENDING");
+        res.json(album);       
+    });
+});
 
 exports.getRouter = function(){
     return router;
