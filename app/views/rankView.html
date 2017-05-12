@@ -79,8 +79,9 @@
 }
 
 </style>
+<link href="css/flip.css" rel="stylesheet" type="text/css"></link>
 <img id="backdrop" src="images/vinyl-background.jpg">
-<div id="mainDiv">
+<div data-role="page" id="mainDiv">
 <img id="coverphoto" src={{coverUrl}}>
 <p id="instructions">Click and drag below to rank </p>
 <div id="listCont">
@@ -90,6 +91,7 @@
 </div>
 </div>
 <button id="submit" ng-click="getOrder(); writeAlbum()"><b>SUBMIT</b></button>
+</div>
 <script>
 $(document).ready(function(){
     console.log("YES");
