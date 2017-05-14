@@ -52,7 +52,7 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
             console.log("SUCCESS IN GETTING THE ALBUM");
             console.log(res);
             $scope.results = res.data.tracks.sort(function(track1, track2){
-                return track1.eloScore > track2.eloScore; 
+                return track2.eloScore - track1.eloScore; 
             });
     }); 
         });

@@ -24,7 +24,7 @@
     background-color: transparent;
 }
 
-#sortable {
+#sortable, #resultsList {
     display: block;
     background-color: transparent;
     padding-left: 0;
@@ -40,7 +40,7 @@
     margin-bottom: 10px;
 }
 
-#listCont {
+#listCont, #resultsListCont {
     display: block;
     width: 250px;
     margin: 0 auto;
@@ -103,7 +103,7 @@
         <h1>RESULTS</h1>
         <div id="resultsListCont">
             <ol id="resultsList">
-                <li ng-repeat="track in results track by $index">{{track.name}}</li>
+                <div class="listElemCont"  ng-repeat="track in results track by $index"><li class="listElem">{{track.name}}</li></div>
             </ol>
         </div>      
     </div>
