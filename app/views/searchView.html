@@ -45,7 +45,7 @@
 
     <ul ng-controller='searchCtrl' id="resultCont">
         <li class="listElem"  ng-repeat="match in matches track by $index" ng-click=selectMatch($index)> 
-            <img class="coverPhoto" src={{match.label.cover}}><p class="albumLabel"><b>{{match.label.album}}</b> - {{match.label.artist}}</p>
+            <img class="coverPhoto" src={{match.label.cover}}><p class="albumLabel"><b>{{match.label.album}} </b><span class="avoidWrap"> - {{match.label.artist}}</span></p>
         </li>
     </ul>
 
@@ -58,11 +58,20 @@
 
     .coverPhoto {
         vertical-align: middle;
+        width: 20%;
+        margin: auto 0;
     }
 
     .albumLabel {
         display: inline-block;
         margin-left: 10px;
+        width: 80%;
+        margin-bottom: 0px;
+        vertical-align: middle;
+    }
+
+    .avoidWrap {
+        display: inline-block;
     }
 
     ul {
