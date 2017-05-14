@@ -51,6 +51,9 @@ app.controller('rankCtrl', function($scope, $http, $routeParams){
             $http.post('http://localhost:8080/api/getAlbum', {mbid: $scope.mbid}).then(function(res, err){
             console.log("SUCCESS IN GETTING THE ALBUM");
             console.log(res);
+            $scope.results = res.data.tracks.sort(function(track1, track2){
+                return track1.eloScore > track2.eloScore; 
+            });
     }); 
         });
     }
