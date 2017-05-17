@@ -23,7 +23,8 @@ mongo.connect(dburl);
   });
   */
 
-var processScores = function(obj){
+
+var processScores = function(obj, callback){
     var db = mongo.get();
     if(obj._id == undefined){
         obj._id = obj.mbid;
@@ -56,11 +57,12 @@ var processScores = function(obj){
         db.collection('AlbumInfo').update({_id: obj._id}, obj, {upsert: true}, function(err, fin){
             if(err) throw err;
             console.log("SUCCESS");
+            callback();
         });
     });
 }
 
-var createNewAlbum = function(obj){
+var createNewAlbum = function(obj, callback){
     var mbid = obj.mbid;
     var db = mongo.get();
     var writeObj = obj;
@@ -72,7 +74,7 @@ var createNewAlbum = function(obj){
         track.eloScore = 1400;
     });
     db.collection('AlbumInfo').insert(writeObj, function(){
-        processScores(obj);   
+        processScores(obj, callback);   
     });
 }
 
@@ -82,11 +84,14 @@ router.post('/api/updateAlbum', function(req, res, next){
     var resSize = 0;
     db.collection('AlbumInfo').count({_id:  mbid }, function(err, count){
         if(count == 0){
-            createNewAlbum(req.body);
+            createNewAlbum(req.body, function(){
+                res.sendStatus(200);   
+            });
         } else {
             //Update the scores here
-            processScores(req.body);
-            res.sendStatus(200);
+            processScores(req.body, function(){
+                res.sendStatus(200);
+            });
         }
     });
 });
